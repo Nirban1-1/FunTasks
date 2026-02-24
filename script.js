@@ -14,6 +14,7 @@ const msg = [
 window.onload = function () {
     const i = Math.floor(Math.random() * msg.length);
     document.getElementById("fortuneBox").innerText = msg[i];
+    loadTasks();
 };
 
 const styles = [
@@ -27,6 +28,7 @@ const styles = [
 
 function changeStyle(index) {
     const box = document.getElementById("fortuneBox");
+    
     box.style.fontSize = styles[index].fontSize;
     box.style.fontFamily = styles[index].fontFamily;
     box.style.color = styles[index].color;
@@ -69,16 +71,14 @@ function resetTimer() {
 
 
 //** To-do list code */
+//**document.addEventListener("DOMContentLoaded", loadTasks); */
 
-window.onload = loadTasks;
 function addTask() {
     let input = document.getElementById("taskInput");
     let taskText = input.value.trim();
 
     if (taskText === "") return;
-
     let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-
     tasks.push({text: taskText, done: false});
     localStorage.setItem("tasks", JSON.stringify(tasks));
 
@@ -89,7 +89,6 @@ function addTask() {
 function loadTasks() {
     let taskList = document.getElementById("taskList");
     taskList.innerHTML = "";
-
     let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
     tasks.forEach((task, index) => {
@@ -103,15 +102,15 @@ function loadTasks() {
         let text = document.createElement("span");
         text.innerText = task.text;
         if (task.done) text.style.textDecoration = "line-through";
-
-        let delBtn = document.createElement("button");
-        delBtn.innerText = "Delete";
-        delBtn.onclick = () => deleteTask(index);
+        
+        let delButton = document.createElement("button");
+        delButton.innerText = "Delete";
+        delButton.onclick = () => deleteTask(index);
 
         li.appendChild(checkbox);
         li.appendChild(text);
-        li.appendChild(delBtn);
-
+        li.appendChild(delButton);
+        
         taskList.appendChild(li);
     });
 }
