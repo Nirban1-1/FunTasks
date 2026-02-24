@@ -36,6 +36,16 @@ function changeStyle(index) {
     box.style.borderColor = styles[index].border;
 }
 
+function showAlert() {
+    show=""
+    for (let i = 1; i <= msg.length; i++) {
+        show += i+"."+msg[i-1] + "\n";
+}
+    alert(show);
+    
+    //alert("Fortunes:\n" + msg.join("\n"))
+
+}
 //**  Stop watch code */
 
 
@@ -52,7 +62,7 @@ function startTimer() {
         document.getElementById("displayTime").innerText = time;
         if (time >= 30) {
             clearInterval(timer);
-            timer = null;
+            
         }       
     }, 1000);
 }
@@ -101,17 +111,18 @@ function loadTasks() {
 
         let text = document.createElement("span");
         text.innerText = task.text;
-        if (task.done) text.style.textDecoration = "line-through";
+        
         
         let delButton = document.createElement("button");
         delButton.innerText = "Delete";
         delButton.onclick = () => deleteTask(index);
-
-        li.appendChild(checkbox);
-        li.appendChild(text);
-        li.appendChild(delButton);
+        if (task.done==false) {
+          li.appendChild(checkbox);
+          li.appendChild(text);
+          li.appendChild(delButton);
         
-        taskList.appendChild(li);
+          taskList.appendChild(li);
+        }
     });
 }
 
